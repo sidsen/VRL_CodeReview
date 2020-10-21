@@ -89,6 +89,10 @@ class Environment:
     elif (uk < self.u_min).all():
       uk = self.u_min
 
+    #SID: ADD NOISE TO CONTROL ACTION, SIMULATION NOISY CONTROLLER MECHANISM (MAKE THIS COMMAND-LINE PARAM?)
+    # Expeirment with: fixed noise, random + bounded, random + unbounded (?, not sure this is realistic)
+    uk[0][0] += 5
+    
     if self.continuous:
       self.xk = self.xk + self.timestep * (f(self.xk, uk)) \
         if coffset is None else self.xk + self.timestep * (f(self.xk, uk) + coffset)
@@ -141,6 +145,10 @@ class Environment:
       uk = self.u_max
     elif (uk < self.u_min).all():
       uk = self.u_min
+
+    #SID: ADD NOISE TO CONTROL ACTION, SIMULATION NOISY CONTROLLER MECHANISM (MAKE THIS COMMAND-LINE PARAM?)
+    # Expeirment with: fixed noise, random + bounded, random + unbounded (?, not sure this is realistic)
+    uk[0][0] += 5
 
     if self.continuous:
       xk = self.xk + self.timestep * (f(self.xk, uk)) \
